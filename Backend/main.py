@@ -1,9 +1,11 @@
 """flask route main code"""
 import json
+import ssl
 from flask import Flask
 from flask import request
-import ssl
 from function.role import Function
+from signup.signup import Singup
+from api.schedule import action_schedule
 
 app = Flask(__name__)
 
@@ -24,6 +26,15 @@ def signup():
             "error" : "0"
         }
     
+    id_check = Singup.action_check_signup(user_signup_inform)
+    
+    if id_check == -1 :
+        Singup.action_signup(user_signup_inform)
+    else :
+        response_singup = {
+            "error" : "401"
+        }
+
     return json.dumps(response_singup, ensure_ascii=False), 200
 
 
@@ -72,5 +83,6 @@ if __name__ == "__main__":
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
     ssl_context.load_cert_chain(certfile='certificate/cert.pem', keyfile='certificate/key.pem', password='EMSW')
     app.run(host='0.0.0.0', port=3000, ssl_context=ssl_context)
+    
     # app.run()
 
