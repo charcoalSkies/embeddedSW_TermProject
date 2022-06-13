@@ -2,7 +2,7 @@
 import json
 from flask import Flask
 from flask import request
-
+import ssl
 from function.role import Function
 
 app = Flask(__name__)
@@ -48,7 +48,7 @@ def login():
 
 
 
-@app.route("/sensorControl", methods = ['POST'])
+@app.route("/login/sensorControl", methods = ['POST'])
 def sensor_control():
     """센서 제어 기능"""
     get_json = request.get_json()
@@ -69,6 +69,8 @@ def sensor_control():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000)
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    ssl_context.load_cert_chain(certfile='certificate/cert.pem', keyfile='certificate/key.pem', password='EMSW')
+    app.run(host='0.0.0.0', port=3000, ssl_context=ssl_context)
     # app.run()
 
