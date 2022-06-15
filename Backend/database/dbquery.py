@@ -37,3 +37,19 @@ class DataBaseQuery(DataBaseConnection):
         return 1
         
         
+    @staticmethod
+    def login_query(user_login_inform:object) -> str:
+        """ 로그인 쿼리 """
+        connection:object = DataBaseConnection.connection()
+        cursor = connection.cursor()
+        sql_query = 'SELECT user_pwd FROM EMSW.users where user_id = %s;'
+        try:
+            cursor.execute(sql_query,(user_login_inform.user_id))
+            data_exist = str(list(cursor)[0])
+            pwd = data_exist[2:-3]
+
+        except Exception :
+            return "-1"
+        finally:
+            connection.close()
+        return pwd
