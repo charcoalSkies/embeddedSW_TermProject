@@ -4,8 +4,9 @@ import ssl
 from flask import Flask
 from flask import request
 from function.role import Function
-from signup.signup import Singup
-from api.schedule import action_schedule
+from access.signup import Singup
+from access.login import Login
+from access.sensorControl import SensorControl
 
 app = Flask(__name__)
 
@@ -16,24 +17,19 @@ def signup():
 
     user_signup_inform:object = Function.signup_parser(get_json)
     
+    response_singup = {}
     if user_signup_inform.err_state == -1:
-        response_singup = {
-            "error" : "400"
-        }
-
+        response_singup["error"] = "400"
     else :
-        response_singup = {
-            "error" : "0"
-        }
+        response_singup["error"] = "0"
     
     id_check = Singup.action_check_signup(user_signup_inform)
     
     if id_check == -1 :
         Singup.action_signup(user_signup_inform)
-    else :
-        response_singup = {
-            "error" : "401"
-        }
+        firebase.FireBase.firebase_insert_id(user_signup_inform)
+    else : 
+        response_singup["error"] = "401"
 
     return json.dumps(response_singup, ensure_ascii=False), 200
 
@@ -45,16 +41,18 @@ def login():
 
     user_login_inform:object = Function.login_parser(get_json)
     
+    response_login = {}
     if user_login_inform.err_state == -1:
-        response_login = {
-            "error" : "500"
-        }
+        response_login["error"] = "500"
 
     else :
-        response_login = {
-            "error" : "0"
-        }
-    
+        response_login["error"] = "0"
+
+    if Login.action_login(user_login_inform) == 0:
+        response_login["error"] = "0"
+    else :
+        response_login["error"] = "501"
+
     return json.dumps(response_login, ensure_ascii=False), 200
 
 
@@ -66,16 +64,17 @@ def sensor_control():
 
     user_control_data:object = Function.sensor_control(get_json)
     
+    response_sensor = {}
+
     if user_control_data.err_state == -1:
-        response_sensor = {
-            "error" : "600"
-        }
-
+        response_sensor["error"] = "600"
     else :
-        response_sensor = {
-            "error" : "0"
-        }
-
+        response_sensor["error"] = "0"
+        id_check = Singup.action_check_signup(user_control_data)
+        if id_check == 1:
+            SensorControl.sensor_control(user_control_data)
+        else :
+            response_sensor["error"] = "601"
     return json.dumps(response_sensor, ensure_ascii=False), 200
 
 
