@@ -21,5 +21,6 @@ class UserloginInform():
 @dataclass
 class UserControlSensor():
     """유저 센서 컨트롤 구조체"""
+    user_id:str = "None"
     window_control:str = "None"
     err_state:int = -1
