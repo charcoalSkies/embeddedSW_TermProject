@@ -3,6 +3,7 @@ package com.example.remotewindowcontroller;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button login_btn = (Button) findViewById(R.id.btn_login);
+        Button signin_btn = (Button) findViewById(R.id.btn_signin);
         EditText user_Id = (EditText) findViewById(R.id.user_id);
         EditText user_pwd = (EditText) findViewById(R.id.user_pwd);
 
@@ -47,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.i("ErrorCode", Error);
+            }
+        });
+        signin_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
             }
         });
     }
