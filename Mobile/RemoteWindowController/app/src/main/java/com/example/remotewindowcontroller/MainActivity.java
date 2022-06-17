@@ -1,8 +1,10 @@
 package com.example.remotewindowcontroller;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,95 +15,96 @@ import android.widget.EditText;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     Thread thread;
-    String responseData = null;
     String Error = null;
-
+    String intent_user_id = null;
+    String intent_user_pwd = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button login_btn = (Button) findViewById(R.id.btn_login);
-        Button signin_btn = (Button) findViewById(R.id.btn_signin);
-        EditText user_Id = (EditText) findViewById(R.id.user_id);
+        Button signup_btn = (Button) findViewById(R.id.btn_signup);
+        EditText user_id = (EditText) findViewById(R.id.user_id);
         EditText user_pwd = (EditText) findViewById(R.id.user_pwd);
+
+        try{
+            Intent intent = getIntent();
+            String intent_user_id = intent.getStringExtra("user_id");
+            String intent_user_pwd = intent.getStringExtra("user_pwd");
+            if(intent_user_id.equals(null) == false && intent_user_pwd.equals(null) == false){
+                user_id.setText(intent_user_id);
+                user_pwd.setText(intent_user_pwd);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         UserLoginInform user_login_inform = new UserLoginInform();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user_login_inform.user_id = user_Id.getText().toString();
+                user_login_inform.user_id = user_id.getText().toString();
                 user_login_inform.user_pwd = user_pwd.getText().toString();
-                sendPost(user_login_inform);
+                loginThread(user_login_inform);
                 try {
                     thread.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.i("ErrorCode", Error);
+                try{
+                    Log.i("ErrorCode", Error);
+                }catch (Exception e){
+                    Error = "-1";}
+
+                if (Error.equals("0")){
+                    Intent intent = new Intent(MainActivity.this, sensorControl.class);
+                    intent.putExtra("user_id", user_id.getText().toString());
+                    startActivity(intent);
+                }
+                else
+                {
+                    AlertDialog.Builder failLogin = new AlertDialog.Builder(MainActivity.this);
+                    failLogin.setTitle("로그인 실패");
+                    failLogin.setMessage("아이디 또는 비밀번호가 틀렸습니다.");
+                    failLogin.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 아무것도 안함
+                        }
+                    });
+                    failLogin.show();
+                }
             }
         });
-        signin_btn.setOnClickListener(new View.OnClickListener() {
+        signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
     }
 
-    public void sendPost(UserLoginInform user_login_inform) {
-         thread = new Thread(new Runnable() {
+    public void loginThread(UserLoginInform user_login_inform){
+        thread = new Thread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void run() {
                 try {
+                    sendPost userLoin = new sendPost();
                     URL url = new URL("http://tera.dscloud.me:3000/login");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                    conn.setRequestProperty("Accept","application/json");
-                    conn.setDoOutput(true);
-                    conn.setDoInput(true);
-
                     JSONObject jsonParam = new JSONObject();
                     jsonParam.put("user_id", user_login_inform.user_id);
                     jsonParam.put("user_pwd", user_login_inform.user_pwd);
 
+                    Error = userLoin.sendAPI(url, jsonParam);
 
-                    Log.i("JSON", jsonParam.toString());
-                    DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-                    os.writeBytes(jsonParam.toString());
-
-                    os.flush();
-                    os.close();
-                    BufferedReader br = null;
-
-                    if (100 <= conn.getResponseCode() && conn.getResponseCode() <= 399) {
-                        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    } else {
-                        br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                    }
-                    responseData = br.lines().collect(Collectors.joining());
-                    conn.disconnect();
-
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    Error = jsonObject.getString("error");
-                    Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-                    Log.i("ServerResponse", responseData);
-                    Log.i("MSG" , conn.getResponseMessage());
-
-                } catch (Exception e) {
+                }catch (Exception e) {
                     e.printStackTrace();
                 }
             }
