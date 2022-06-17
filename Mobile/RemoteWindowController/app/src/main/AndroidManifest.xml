@@ -17,13 +17,22 @@
         android:theme="@style/Theme.RemoteWindowController"
         tools:targetApi="31">
         <activity
-            android:name=".sensorControl"
+            android:name=".DeviceLogin"
+            android:exported="false" />
+        <activity
+            android:name=".EquipmentRegistration"
+            android:exported="false" />
+        <activity
+            android:name=".SensorControl"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UserLogin"
+            android:exported="true" />
+        <activity
+            android:name=".ChooseLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
