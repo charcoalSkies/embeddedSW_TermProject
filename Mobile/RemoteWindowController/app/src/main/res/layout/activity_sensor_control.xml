@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sensorControl">
+    tools:context=".SensorControl">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="sensor_control"></TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>
