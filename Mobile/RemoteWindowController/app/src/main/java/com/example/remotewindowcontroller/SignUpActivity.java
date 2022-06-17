@@ -80,7 +80,12 @@ public class SignUpActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Log.i("ErrorCode", Error);
+                        try{
+                            Log.i("ErrorCode", Error);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         if (Error.equals("0")){
                             AlertDialog.Builder success = new AlertDialog.Builder(SignUpActivity.this);
                             success.setTitle("회원가입 성공");
@@ -88,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                             success.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(SignUpActivity.this, UserLogin.class);
                                     intent.putExtra("user_id", user_id.getText().toString());
                                     intent.putExtra("user_pwd", user_pwd.getText().toString());
                                     startActivity(intent);
@@ -120,7 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sendPost userSignUp = new sendPost();
+                    SendPost userSignUp = new SendPost();
                     URL url = new URL("http://tera.dscloud.me:3000/signup");
                     JSONObject jsonParam = new JSONObject();
                     jsonParam.put("user_id", user_Signup_inform.user_id);
