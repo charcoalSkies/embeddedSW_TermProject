@@ -26,7 +26,7 @@ class Function():
         except Exception:
             return user_signup_inform
         
-        sha256_pwd = Function.sha256_hashing(request_diction['user_id'])
+        sha256_pwd = Function.sha256_hashing(request_diction['user_pwd'])
         try:
             user_signup_inform = UserSignUpInform(
                 user_id = request_diction['user_id'],
@@ -54,7 +54,7 @@ class Function():
         except Exception:
             return user_login_inform
         
-        sha256_pwd = Function.sha256_hashing(request_diction['user_id'])
+        sha256_pwd = Function.sha256_hashing(request_diction['user_pwd'])
         try:
             user_login_inform = UserloginInform(
                 user_id = request_diction['user_id'],
