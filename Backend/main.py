@@ -7,6 +7,7 @@ from function.role import Function
 from access.signup import Singup
 from access.login import Login
 from access.sensorControl import SensorControl
+from database.firebase import FireBase
 
 app = Flask(__name__)
 
@@ -27,7 +28,7 @@ def signup():
     
     if id_check == -1 :
         Singup.action_signup(user_signup_inform)
-        firebase.FireBase.firebase_insert_id(user_signup_inform)
+        FireBase.firebase_insert_id(user_signup_inform)
     else : 
         response_singup["error"] = "401"
 
@@ -79,9 +80,10 @@ def sensor_control():
 
 
 if __name__ == "__main__":
-    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    ssl_context.load_cert_chain(certfile='certificate/cert.pem', keyfile='certificate/key.pem', password='EMSW')
-    app.run(host='0.0.0.0', port=3000, ssl_context=ssl_context)
+    # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    # ssl_context.load_cert_chain(certfile='certificate/cert.pem', keyfile='certificate/key.pem', password='EMSW')
+    # app.run(host='0.0.0.0', port=3000, ssl_context=ssl_context)
+    app.run(host='0.0.0.0', port=3000)
     
     # app.run()
 
