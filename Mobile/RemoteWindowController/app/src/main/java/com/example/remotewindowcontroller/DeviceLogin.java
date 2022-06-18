@@ -1,20 +1,14 @@
 package com.example.remotewindowcontroller;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import org.json.JSONObject;
-
-import java.net.URL;
 
 public class DeviceLogin extends AppCompatActivity {
     Thread thread;
@@ -38,7 +32,7 @@ public class DeviceLogin extends AppCompatActivity {
                 equipment_inform.user_pwd = user_pwd.getText().toString();
                 equipment_inform.equipment_name = equipment_name.getText().toString();
 
-                if(equipment_inform.user_id.equals("") == true || equipment_inform.user_id.equals("") == true || equipment_inform.user_pwd.equals("") == true){
+                if(equipment_inform.equipment_name.equals("") == true || equipment_inform.user_id.equals("") == true || equipment_inform.user_pwd.equals("") == true){
                     AlertDialog.Builder failRegister = new AlertDialog.Builder(DeviceLogin.this);
                     failRegister.setTitle("장비 로그인 오류");
                     failRegister.setMessage("입력되지 않은 정보가 존재합니다.\n 다시 확인해 주세요.");
