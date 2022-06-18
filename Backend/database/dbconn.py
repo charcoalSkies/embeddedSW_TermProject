@@ -14,7 +14,6 @@ class DataBaseConnection():
                                     port = DataBaseDefine.port, 
                                     database = DataBaseDefine.database, 
                                     autocommit = DataBaseDefine.autocommit)
-            print("connected")
         except pymysql.Error as err:
             print(f"Error connection to MariaDB : {err}")
             return err

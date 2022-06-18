@@ -28,8 +28,6 @@ class DataBaseQuery(DataBaseConnection):
             cursor.execute(sql_query,(user_singup_inform.user_id))
             data_exist = list(cursor)[0]
 
-            print(data_exist)
-
         except Exception :
             return -1
         finally:
