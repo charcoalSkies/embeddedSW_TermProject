@@ -1,5 +1,4 @@
-package com.example.remotewindowcontroller;
-
+package com.remote.windowcontroller;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONObject;
 
 import java.net.URL;
-
 
 public class SensorControl extends AppCompatActivity {
     private TextView device_name;
