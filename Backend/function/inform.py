@@ -19,6 +19,14 @@ class UserloginInform():
 
 
 @dataclass
+class UserEquipmentInform():
+    """ 유저 장비 등록 구조체 """
+    user_id:str = "None"
+    equipment_name:str = "None"
+    err_state:int = -1
+    
+
+@dataclass
 class UserControlSensor():
     """유저 센서 컨트롤 구조체"""
     user_id:str = "None"

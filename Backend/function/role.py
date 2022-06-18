@@ -4,7 +4,7 @@ import hashlib
 from function.inform import UserSignUpInform
 from function.inform import UserloginInform
 from function.inform import UserControlSensor
-
+from function.inform import UserEquipmentInform
 
 class Function():
     """ 부가적 함수 정의 """
@@ -60,12 +60,35 @@ class Function():
                 user_id = request_diction['user_id'],
                 user_pwd = sha256_pwd,
                 err_state = 0)
-
+            
+            print(user_login_inform.user_id)
+            print(user_login_inform.user_pwd)
+            
         except Exception:
             return user_login_inform
         
         return user_login_inform
 
+
+    @staticmethod
+    def register_equipment_parser(request:json) -> object:
+        user_equipment_inform = UserEquipmentInform
+        try:
+            request_json = json.dumps(request)
+            request_diction = json.loads(request_json)
+        except Exception:
+            return user_equipment_inform
+        
+        try:
+            user_equipment_inform = UserEquipmentInform(
+            user_id = request_diction['user_id'],
+            equipment_name = request_diction['equipment_name'],
+            err_state = 0)
+
+        except Exception:
+            return user_equipment_inform
+        return user_equipment_inform
+            
 
     @staticmethod
     def data_integrity_check(state:dict) -> int:
@@ -74,7 +97,7 @@ class Function():
             return 1
         else :
             return 0
-
+    
     @staticmethod
     def sensor_control(request:json) -> object:
         """ 센서 제어 데이터 파싱 """

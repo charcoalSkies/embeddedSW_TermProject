@@ -26,13 +26,34 @@ class FireBase():
         users_ref = ref.child('users')
         users_ref.update({
             f'{user_login_inform.user_id}':
-            {
-                'window' : {
+            {   
+                "equipment" : {
+                    "name" : "None"
+                },
+                
+                "window" : {
                     "state": 'close'
-                }  
+                }
             }
         })
 
+    @staticmethod
+    def update_equipment_name(user_equipment_inform) -> None:
+        """ 장비 이름 등록 """
+        try:
+            FireBase.firebase_conn()
+        except Exception:
+            pass
+        
+        ref = db.reference('users')
+        users_ref = ref.child(f'{user_equipment_inform.user_id}')
+        users_ref.update({
+                "equipment" : {
+                    "name" : f"{user_equipment_inform.equipment_name}"
+                }
+            })
+        
+            
     @staticmethod
     def update_window_state(user_control_data:object) -> None:
         """ 창문 상태 업데이트 쿼리 """

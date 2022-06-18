@@ -7,8 +7,8 @@ from function.role import Function
 from access.signup import Singup
 from access.login import Login
 from access.sensorControl import SensorControl
+from access.registerEquipment import RegisterEquipment
 from database.firebase import FireBase
-
 app = Flask(__name__)
 
 @app.route("/signup",  methods = ['POST'])
@@ -45,7 +45,6 @@ def login():
     response_login = {}
     if user_login_inform.err_state == -1:
         response_login["error"] = "500"
-
     else :
         response_login["error"] = "0"
 
@@ -57,7 +56,25 @@ def login():
     return json.dumps(response_login, ensure_ascii=False), 200
 
 
+@app.route("/login/registerEquipment", methods = ['POST'])
+def regist_equipment():
+    """ 장비 등록 기능 """
+    get_json = request.get_json()
+    user_equipment_inform = Function.register_equipment_parser(get_json)
+    response_equipment= {}
 
+    if user_equipment_inform.err_state == -1:
+        response_equipment["error"] = "600"
+    else :
+        response_equipment["error"] = "0"
+        id_check = Singup.action_check_signup(user_equipment_inform)
+        if id_check == 1:
+            RegisterEquipment.regist_equipment(user_equipment_inform)
+        else :
+            response_equipment["error"] = "601"
+    return json.dumps(response_equipment, ensure_ascii=False), 200
+    
+    
 @app.route("/login/sensorControl", methods = ['POST'])
 def sensor_control():
     """센서 제어 기능"""
@@ -68,14 +85,14 @@ def sensor_control():
     response_sensor = {}
 
     if user_control_data.err_state == -1:
-        response_sensor["error"] = "600"
+        response_sensor["error"] = "700"
     else :
         response_sensor["error"] = "0"
         id_check = Singup.action_check_signup(user_control_data)
         if id_check == 1:
             SensorControl.sensor_control(user_control_data)
         else :
-            response_sensor["error"] = "601"
+            response_sensor["error"] = "701"
     return json.dumps(response_sensor, ensure_ascii=False), 200
 
 
