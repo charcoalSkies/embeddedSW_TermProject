@@ -1,6 +1,6 @@
 package com.remote.windowcontroller;
 
-public class weather_data {
+public class Weather_data {
     private String cloud;
     private String feels_like;
     private String humidity;
@@ -10,7 +10,7 @@ public class weather_data {
     private String weather;
     private String wind;
 
-    public weather_data(){}
+    public Weather_data(){}
 
     public String getCloud() {
         return cloud;
@@ -76,7 +76,7 @@ public class weather_data {
         this.wind = wind;
     }
 
-    public weather_data(String cloud, String feels_like, String humidity, String temp, String temp_max, String temp_min, String weather, String wind)
+    public Weather_data(String cloud, String feels_like, String humidity, String temp, String temp_max, String temp_min, String weather, String wind)
     {
         this.cloud = cloud;
         this.feels_like = feels_like;
