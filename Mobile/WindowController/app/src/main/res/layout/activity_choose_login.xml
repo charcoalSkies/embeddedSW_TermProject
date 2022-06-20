@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
     tools:context=".ChooseLogin">
 
     <Button
         android:id="@+id/btn_user"
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="사용자 로그인"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40">
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textStyle="bold">
     </Button>
 
     <Button
         android:id="@+id/btn_device"
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="장비 로그인"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51">
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textStyle="bold">
     </Button>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

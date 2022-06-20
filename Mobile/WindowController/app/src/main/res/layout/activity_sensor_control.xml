@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     tools:context=".SensorControl">
 
     <TextView
@@ -23,9 +24,11 @@
 
     <Button
         android:id="@+id/btn_open"
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:text="창문열기"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,9 +40,11 @@
 
     <Button
         android:id="@+id/btn_close"
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:text="창문닫기"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
