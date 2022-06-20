@@ -77,7 +77,7 @@ public class DevicePage extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                weather_data weather = snapshot.getValue(weather_data.class);
+                Weather_data weather = snapshot.getValue(Weather_data.class);
                 Cloud = weather.getCloud();
                 Weather = weather.getWeather();
                 Feels_like = weather.getFeels_like();
