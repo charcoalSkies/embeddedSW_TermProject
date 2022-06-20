@@ -85,7 +85,7 @@ public class SensorControl extends AppCompatActivity {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                equipment_data edata = snapshot.getValue(equipment_data.class);
+                Equipment_data edata = snapshot.getValue(Equipment_data.class);
                 eq_name = edata.getEquipment_name();
                 w_state = edata.getWindow_state();
 

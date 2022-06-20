@@ -1,10 +1,10 @@
 package com.remote.windowcontroller;
 
-public class equipment_data {
+public class Equipment_data {
     private String equipment_name;
     private String window_state;
 
-    public equipment_data(){}
+    public Equipment_data(){}
 
     public String getEquipment_name() {
         return equipment_name;
@@ -22,7 +22,7 @@ public class equipment_data {
         this.window_state = window_state;
     }
 
-    public equipment_data(String equipment_name, String window_state)
+    public Equipment_data(String equipment_name, String window_state)
     {
         this.equipment_name = equipment_name;
         this.window_state = window_state;
