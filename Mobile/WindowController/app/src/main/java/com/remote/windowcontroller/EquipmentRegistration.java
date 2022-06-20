@@ -76,7 +76,9 @@ public class EquipmentRegistration extends AppCompatActivity {
                         successRegister.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // 아무것도 안함
+                                Intent intent = new Intent(EquipmentRegistration.this, SensorControl.class);
+                                intent.putExtra("user_id", intent_user_id);
+                                startActivity(intent);
                             }
                         });
                         successRegister.show();
