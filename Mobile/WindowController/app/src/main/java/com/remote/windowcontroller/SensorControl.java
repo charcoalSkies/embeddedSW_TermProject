@@ -69,7 +69,7 @@ public class SensorControl extends AppCompatActivity {
         weatherRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                weather_data weather = snapshot.getValue(weather_data.class);
+                Weather_data weather = snapshot.getValue(Weather_data.class);
             }
 
             @Override
