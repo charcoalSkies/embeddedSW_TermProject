@@ -33,8 +33,23 @@ public class DevicePage extends AppCompatActivity {
     private String Temp_min;
     private String Wind;
 
-    private String eq_name;
-    private String w_state;
+    private String equipment_name;
+    private String window_state;
+
+    static {
+        System.loadLibrary("setStepMotor");
+        System.loadLibrary("setDotMatrix");
+        System.loadLibrary("setTextLcd");
+        System.loadLibrary("setFnd");
+        System.loadLibrary("setBuzzer");
+    }
+
+    public native int SetMotorState(int direction);
+    public native int SetDotMatrix(int face);
+    public native int SetTextLcd(String str1, String str2);
+    public native int SetFnd(String str);
+    public native int SetBuzzer(int sound);
+
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference weatherRef = mRootRef.child("Weather").child("Seoul");
@@ -59,6 +74,7 @@ public class DevicePage extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         weatherRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 weather_data weather = snapshot.getValue(weather_data.class);
@@ -94,10 +110,10 @@ public class DevicePage extends AppCompatActivity {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                equipment_data edata = snapshot.getValue(equipment_data.class);
-                eq_name = edata.getEquipment_name();
-                w_state = edata.getWindow_state();
-                tvState.setText(w_state);
+                Equipment_data equipment_data = snapshot.getValue(Equipment_data.class);
+                equipment_name = equipment_data.getEquipment_name();
+                window_state = equipment_data.getWindow_state();
+                tvState.setText(window_state);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
