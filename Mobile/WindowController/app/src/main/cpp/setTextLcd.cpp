@@ -47,9 +47,9 @@ int SetTextLcd(const char* str1 ,const char* str2)
         if (str_size > 0)
         {
             strncat(reinterpret_cast<char *>(string), str2, str_size);
-            memset(string + LINE_BUFF + str_size, ' ', LINE_BUFF - str_size);
+            memset( string + LINE_BUFF + str_size, ' ', LINE_BUFF - str_size);
         }
-        write(dev, string, MAX_BUFF );
+        write(dev, string, MAX_BUFF - 1 );
         close(dev);
         return 0;
     }
