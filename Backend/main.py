@@ -22,7 +22,7 @@ def signup():
     if user_signup_inform.err_state == -1:
         response_singup["error"] = "400"
     else :
-        response_singup["error"] = "0"
+        response_singup["error"] = "200"
     
     id_check = Singup.action_check_signup(user_signup_inform)
     
@@ -32,7 +32,7 @@ def signup():
     else : 
         response_singup["error"] = "401"
 
-    return json.dumps(response_singup, ensure_ascii=False), 200
+    return json.dumps(response_singup, ensure_ascii=False), response_singup["error"]
 
 
 @app.route("/login", methods = ['POST'])
@@ -46,14 +46,14 @@ def login():
     if user_login_inform.err_state == -1:
         response_login["error"] = "500"
     else :
-        response_login["error"] = "0"
+        response_login["error"] = "200"
 
     if Login.action_login(user_login_inform) == 0:
-        response_login["error"] = "0"
+        response_login["error"] = "200"
     else :
         response_login["error"] = "501"
 
-    return json.dumps(response_login, ensure_ascii=False), 200
+    return json.dumps(response_login, ensure_ascii=False), response_login["error"]
 
 
 @app.route("/login/registerEquipment", methods = ['POST'])
@@ -66,13 +66,13 @@ def regist_equipment():
     if user_equipment_inform.err_state == -1:
         response_equipment["error"] = "600"
     else :
-        response_equipment["error"] = "0"
+        response_equipment["error"] = "200"
         id_check = Singup.action_check_signup(user_equipment_inform)
         if id_check == 1:
             RegisterEquipment.regist_equipment(user_equipment_inform)
         else :
             response_equipment["error"] = "601"
-    return json.dumps(response_equipment, ensure_ascii=False), 200
+    return json.dumps(response_equipment, ensure_ascii=False), response_equipment["error"]
     
     
 @app.route("/login/sensorControl", methods = ['POST'])
@@ -87,13 +87,13 @@ def sensor_control():
     if user_control_data.err_state == -1:
         response_sensor["error"] = "700"
     else :
-        response_sensor["error"] = "0"
+        response_sensor["error"] = "200"
         id_check = Singup.action_check_signup(user_control_data)
         if id_check == 1:
             SensorControl.sensor_control(user_control_data)
         else :
             response_sensor["error"] = "701"
-    return json.dumps(response_sensor, ensure_ascii=False), 200
+    return json.dumps(response_sensor, ensure_ascii=False), response_sensor["error"]
 
 
 if __name__ == "__main__":
