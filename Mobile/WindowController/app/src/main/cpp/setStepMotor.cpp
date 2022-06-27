@@ -51,7 +51,8 @@ int step_motor(int direction)
         motor_state[0] = action;
         write(dev, motor_state, sizeof(motor_state));
 
-        timer(390);
+//        timer(390);
+        sleep(3);
 
         action = 0;
         __android_log_print(ANDROID_LOG_INFO, "Motor stop", "Driver = %d", dev);
