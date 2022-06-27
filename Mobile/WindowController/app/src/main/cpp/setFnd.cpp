@@ -11,7 +11,7 @@ Java_com_remote_windowcontroller_DevicePage_SetFnd(JNIEnv *env, jobject thiz, js
     // TODO: implement SetFnd()
     jint result;
     const char *str =(*env).GetStringUTFChars(val,NULL);
-    __android_log_print(ANDROID_LOG_INFO,"FpgaFndExample","Driver = %s",val);
+    __android_log_print(ANDROID_LOG_INFO,"FpgaFndExample","Driver = %s",str);
     result = setFnd(str);
     (*env).ReleaseStringUTFChars(val,str);
     return result;
@@ -20,31 +20,27 @@ Java_com_remote_windowcontroller_DevicePage_SetFnd(JNIEnv *env, jobject thiz, js
 int setFnd(const char* str){
     int dev;
     unsigned char data[4];
+    unsigned char retval;
+    int i;
     int str_size;
 
     memset(data,0,sizeof(data));
 
     str_size =(strlen(str));
-
-    if(str_size > MAX_DIGIT)
+    if(str_size > MAX_DIGIT){
         str_size = MAX_DIGIT;
-
-    for(int i=0;i<str_size;i++)
-    {
-        if((str[i]<0x30)||(str[i]>0x39))
+    }
+    for(i=0;i<str_size;i++){
+        if((str[i]<0x30)||(str[i]>0x39)) {
             return 1;
-
+        }
         data[i] = str[i]-0x30;
     }
-
     dev = open(FND_DEVICE,O_RDWR);
-    if(dev < 0)
-    {
+    if(dev < 0){
         __android_log_print(ANDROID_LOG_INFO,"Device Open Error","Driver = %s",str);
         return -1;
-    }
-    else
-    {
+    }else{
         __android_log_print(ANDROID_LOG_INFO,"Device Open Succsess","Driver = %d",str);
         write(dev,&data,4);
         close(dev);
