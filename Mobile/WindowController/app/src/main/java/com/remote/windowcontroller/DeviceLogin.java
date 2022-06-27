@@ -64,7 +64,7 @@ public class DeviceLogin extends AppCompatActivity {
 //                    FirebaseLoginThread(equipment_inform);
                     loginThread(equipment_inform);
 
-                    if(Error.equals("0") == true) {
+                    if(Error.equals("200") == true) {
                         mDatabase = FirebaseDatabase.getInstance().getReference();
                         mDatabase.child("users").child(equipment_inform.user_id).child("equipment_name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             String EqName = "";
