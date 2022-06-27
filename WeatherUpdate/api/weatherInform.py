@@ -12,4 +12,4 @@ class WeatherInform():
     temp_max:str = "None"
     humidity:str = "None"
     wind:str = "None"
-
+    fine_dust:str = "None"

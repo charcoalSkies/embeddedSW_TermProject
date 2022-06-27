@@ -23,6 +23,22 @@ class SyncWeather():
         weather_inform.temp_max = weather_data["main"]["temp_max"]
         weather_inform.humidity = weather_data["main"]["humidity"]
         weather_inform.wind = weather_data["wind"]["speed"]
+        
+        find_dust_data = API.request_fine_dust()
+        fine_dust = int(find_dust_data['response']['body']['items'][0]['pm10Value'])
+        
+        
+        if fine_dust < 31:
+            weather_inform.fine_dust = "0"
+            
+        elif fine_dust > 30 and fine_dust < 81:
+            weather_inform.fine_dust = "1"
+            
+        elif fine_dust > 80 and fine_dust < 151:
+            weather_inform.fine_dust = "2"
+            
+        else : 
+            weather_inform.fine_dust = "3"
 
         return weather_inform
 

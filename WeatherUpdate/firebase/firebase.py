@@ -34,7 +34,8 @@ class FireBase():
                 'temp_max' : f'{weather_inform.temp_max}',
                 'feels_like' : f'{weather_inform.feels_like}',
                 'humidity' : f'{weather_inform.humidity}',
-                'wind' : f'{weather_inform.wind}'
+                'wind' : f'{weather_inform.wind}',
+                'fine_dust' : f'{weather_inform.fine_dust}'
             }
         })
 
