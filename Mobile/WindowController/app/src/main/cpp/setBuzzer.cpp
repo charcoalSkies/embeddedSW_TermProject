@@ -23,12 +23,12 @@ int setBuzzer(int sound)
     dev = open(BUZZER_DEVICE, O_RDWR);
     if(dev < 0)
     {
-        __android_log_print(ANDROID_LOG_INFO, "Device Open Error", "Driver = %d", x);
+        __android_log_print(ANDROID_LOG_INFO, "Device Open Error", "Driver = %d", sound);
         return -1;
     }
     else
     {
-        __android_log_print(ANDROID_LOG_INFO, "Device Open Success", "Driver = %d", x);
+        __android_log_print(ANDROID_LOG_INFO, "Device Open Success", "Driver = %d", sound);
         write(dev, &data, 1);
         close(dev);
         return 0;
