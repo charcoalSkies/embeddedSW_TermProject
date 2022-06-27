@@ -27,13 +27,8 @@ class FireBase():
         users_ref.update({
             f'{user_login_inform.user_id}':
             {   
-                "equipment" : {
-                    "name" : "None"
-                },
-                
-                "window" : {
-                    "state": 'close'
-                }
+                "equipment_name" :  "None",
+                "window_state" : 'None'
             }
         })
 
@@ -48,9 +43,7 @@ class FireBase():
         ref = db.reference('users')
         users_ref = ref.child(f'{user_equipment_inform.user_id}')
         users_ref.update({
-                "equipment" : {
-                    "name" : f"{user_equipment_inform.equipment_name}"
-                }
+                "equipment_name" : f"{user_equipment_inform.equipment_name}"
             })
         
             
@@ -66,8 +59,6 @@ class FireBase():
         ref = db.reference('users')
         users_ref = ref.child(f'{user_control_data.user_id}')
         users_ref.update({
-                    'window': {
-                        'state': f'{user_control_data.window_control}'
-                    }
+                    'window_state': f'{user_control_data.window_control}'
                 })
 
