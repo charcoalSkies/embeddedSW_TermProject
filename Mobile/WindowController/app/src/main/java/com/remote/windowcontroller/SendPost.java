@@ -40,15 +40,17 @@ public class SendPost {
             } else {
                 br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
             }
-
-            String responseData = br.lines().collect(Collectors.joining());
             conn.disconnect();
 
-            JSONObject jsonObject = new JSONObject(responseData);
-            Error = jsonObject.getString("error");
-            Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-            Log.i("ServerResponse", responseData);
+//            String responseData = br.lines().collect(Collectors.joining());
+
+//            JSONObject jsonObject = new JSONObject(responseData);
+//            Error = jsonObject.getString("error");
+            Error = String.valueOf(conn.getResponseCode());
+            Log.i("STATUS", Error);
+//            Log.i("ServerResponse", responseData);
             Log.i("MSG" , conn.getResponseMessage());
+
 
         }catch (Exception e) {
             e.printStackTrace();
