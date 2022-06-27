@@ -65,7 +65,7 @@ public class UserLogin extends AppCompatActivity {
                     Error = "-1";
                 }
 
-                if (Error.equals("0")){
+                if (Error.equals("200")){
                     if(equipment_registration.isChecked()) {
                         Intent intent = new Intent(UserLogin.this, EquipmentRegistration.class);
                         intent.putExtra("user_id", user_id.getText().toString());
