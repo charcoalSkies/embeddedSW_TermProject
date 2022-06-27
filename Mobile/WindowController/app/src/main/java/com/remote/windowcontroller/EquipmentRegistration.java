@@ -69,7 +69,7 @@ public class EquipmentRegistration extends AppCompatActivity {
                     }catch (Exception e){
                         Error = "-1";
                     }
-                    if (Error.equals("0")){
+                    if (Error.equals("200")){
                         AlertDialog.Builder successRegister = new AlertDialog.Builder(EquipmentRegistration.this);
                         successRegister.setTitle("장비 등록 성공");
                         successRegister.setMessage("장비 등록에 성공하였습니다.");
