@@ -85,7 +85,7 @@ public class SignUp extends AppCompatActivity {
                         } catch (Exception e){
                             e.printStackTrace();
                         }
-                        if (Error.equals("0")){
+                        if (Error.equals("200")){
                             AlertDialog.Builder success = new AlertDialog.Builder(SignUp.this);
                             success.setTitle("회원가입 성공");
                             success.setMessage("환영합니다 " + user_id.getText().toString()+" 님");
