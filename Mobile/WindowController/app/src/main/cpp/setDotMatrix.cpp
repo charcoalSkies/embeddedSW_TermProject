@@ -16,6 +16,7 @@ Java_com_remote_windowcontroller_DevicePage_SetDotMatrix(JNIEnv *env, jobject th
 int setDotMatrix(int face)
 {
     int dev;
+
     size_t str_size;
 
     str_size = sizeof(fpga_number[face]);
@@ -37,6 +38,9 @@ int setDotMatrix(int face)
                 break;
             case 2:
                 write(dev,fpga_number[2],str_size);
+                break;
+            case 3:
+                write(dev,fpga_number[3],str_size);
                 break;
         }
         close(dev);
